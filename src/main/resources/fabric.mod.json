@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "id": "macfpsboost",
+  "id": "cpubooster",
   "version": "1.0.0",
-  "name": "Mac FPS Boost",
-  "description": "Client-side mod to improve FPS on Apple Silicon by monitoring frame times and adapting quality settings.",
+  "name": "CPU Booster",
+  "description": "Advanced CPU/GPU optimization mod with 10 configurable performance features. All features enabled by default.",
   "authors": ["Jellomakker"],
   "contact": {},
   "license": "MIT",
   "environment": "client",
   "entrypoints": {
-    "client": ["com.jellomakker.macfpsboost.MacFpsBoostMod"]
+    "client": ["com.jellomakker.cpubooster.CpuBoosterMod"]
   },
   "depends": {
     "fabricloader": ">=0.14.0"

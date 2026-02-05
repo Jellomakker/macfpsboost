@@ -1,6 +1,6 @@
 
 plugins {
-    id 'fabric-loom' version '1.8.1'
+    id 'fabric-loom' version '1.11.5'
     id 'java'
 }
 
@@ -10,6 +10,8 @@ version = '1.0.0'
 repositories {
     mavenCentral()
     maven { url = uri('https://maven.fabricmc.net/') }
+    maven { url = uri('https://maven.shedaniel.me/') }
+    maven { url = uri('https://maven.terraformersmc.com/releases') }
 }
 
 java {
@@ -19,42 +21,22 @@ java {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.findProperty('minecraft.version')}"
-    mappings "net.fabricmc:yarn:${project.findProperty('loom.mappings.version')}:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.18.4"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    // Mod dependency for Fabric API (keybinding)
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.findProperty('fabric_version')}"
 }
 
 loom {
     accessWidenerPath.set(file('src/main/resources/macfpsboost.accesswidener'))
 }
 
-// Ensure jar task includes classes and resources
-jar {
-    from sourceSets.main.output.classesDirs
-    from sourceSets.main.output.resourcesDir
-    manifest {
-        attributes 'Manifest-Version': '1.0'
-    }
-}
-
-// Override remapJar to use dev jar instead (remapJar has issues, but dev jar works fine)
-remapJar.dependsOn jar
-remapJar.doLast {
-    copy {
-        from file('build/devlibs/macfpsboost-1.0.0-dev.jar')
-        into 'build/libs'
-        rename { String fileName ->
-            fileName.replace('-dev', '')
-        }
-        duplicatesStrategy = 'include'
-    }
-}
-
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// Verification task: ensure jar contains required files
+// Verification task: ensure jar contains required files and is properly remapped
 task verifyJar {
     dependsOn build
     doLast {
@@ -73,9 +55,9 @@ task verifyJar {
         
         def requiredFiles = [
             'fabric.mod.json',
-            'com/jellomakker/macfpsboost/MacFpsBoostMod.class',
-            'com/jellomakker/macfpsboost/FrameTimeMonitor.class',
-            'com/jellomakker/macfpsboost/AdaptiveParticleGovernor.class'
+            'com/jellomakker/cpubooster/CpuBoosterMod.class',
+            'com/jellomakker/cpubooster/FrameTimeMonitor.class',
+            'com/jellomakker/cpubooster/AdaptiveParticleGovernor.class'
         ]
         
         requiredFiles.each { required ->
@@ -86,21 +68,27 @@ task verifyJar {
             }
         }
         
+        // CRITICAL: Verify Minecraft classes are NOT bundled (they must be imported from Minecraft jar at runtime)
+        if (output.contains('net/minecraft/text/Text.class') || output.contains('net/minecraft/')) {
+            throw new GradleException("ERROR: Minecraft classes should not be bundled in the mod jar! The jar is not properly remapped.")
+        }
+        println "✓ Minecraft classes are NOT bundled (correctly imports from runtime)"
+        
         // Verify fabric.mod.json format using unzip
         def modJsonPb = new ProcessBuilder('unzip', '-p', jarFile.path, 'fabric.mod.json')
         def modJsonProcess = modJsonPb.start()
         def modJsonContent = modJsonProcess.text
         modJsonProcess.waitFor()
         
-        if (modJsonContent.contains('"id": "macfpsboost"') && 
+        if (modJsonContent.contains('"id": "cpubooster"') && 
             modJsonContent.contains('"environment": "client"') &&
-            modJsonContent.contains('"com.jellomakker.macfpsboost.MacFpsBoostMod"')) {
+            modJsonContent.contains('"com.jellomakker.cpubooster.CpuBoosterMod"')) {
             println "✓ fabric.mod.json is valid and properly configured"
         } else {
             throw new GradleException("fabric.mod.json is missing required fields")
         }
         
-        println "\n✓ BUILD VERIFICATION PASSED: Jar is a valid Fabric mod!"
+        println "\n✓ BUILD VERIFICATION PASSED: Jar is properly remapped and ready for distribution!"
     }
 }
 
