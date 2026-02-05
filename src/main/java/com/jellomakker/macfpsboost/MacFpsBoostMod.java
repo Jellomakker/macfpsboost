@@ -1,23 +1,24 @@
 package com.jellomakker.macfpsboost;
 
 import net.fabricmc.api.ClientModInitializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MacFpsBoostMod implements ClientModInitializer {
-
+    private static final Logger LOGGER = LogManager.getLogger("macfpsboost");
     private static final FrameTimeMonitor FRAME_TIME_MONITOR = new FrameTimeMonitor();
-    private static final DynamicScaler DYNAMIC_SCALER = new DynamicScaler();
-    private static final ChunkRebuildBudgeter REBUILD_BUDGETER = new ChunkRebuildBudgeter();
-    private static AdaptiveParticleGovernor GOVERNOR = new AdaptiveParticleGovernor();
+    private static final AdaptiveParticleGovernor GOVERNOR = new AdaptiveParticleGovernor();
 
     @Override
     public void onInitializeClient() {
-        // TODO: register tick callbacks / mixin hooks where needed.
-        // Mixins will inject into render loop and chunk rebuild scheduler.
+        LOGGER.info("Mac FPS Boost loaded! Frame time monitoring active.");
     }
 
-    public static FrameTimeMonitor getFrameTimeMonitor() { return FRAME_TIME_MONITOR; }
-    public static DynamicScaler getDynamicScaler() { return DYNAMIC_SCALER; }
-    public static ChunkRebuildBudgeter getRebuildBudgeter() { return REBUILD_BUDGETER; }
-    public static AdaptiveParticleGovernor getGovernor() { return GOVERNOR; }
-    public static void setGovernor(AdaptiveParticleGovernor g) { GOVERNOR = g; }
+    public static FrameTimeMonitor getFrameTimeMonitor() {
+        return FRAME_TIME_MONITOR;
+    }
+
+    public static AdaptiveParticleGovernor getGovernor() {
+        return GOVERNOR;
+    }
 }

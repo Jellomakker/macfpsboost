@@ -3,7 +3,7 @@
   "id": "macfpsboost",
   "version": "1.0.0",
   "name": "Mac FPS Boost",
-  "description": "Client-side mod to improve FPS and smoothness on Apple Silicon by dynamic scaling and chunk rebuild budgeting.",
+  "description": "Client-side mod to improve FPS on Apple Silicon by monitoring frame times and adapting quality settings.",
   "authors": ["Jellomakker"],
   "contact": {},
   "license": "MIT",
@@ -13,6 +13,5 @@
   },
   "depends": {
     "fabricloader": ">=0.14.0"
-  },
-  "mixins": ["mixins.macfpsboost.json"]
+  }
 }

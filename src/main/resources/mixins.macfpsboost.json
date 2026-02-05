@@ -1,12 +1,7 @@
 {
-  "required": true,
+  "required": false,
   "minVersion": "0.8",
   "package": "com.jellomakker.macfpsboost.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "mixins.macfpsboost.refmap.json",
-  "mixins": [
-    "MinecraftClientMixin",
-    "ParticleManagerMixin",
-    "BlockEntityRenderDispatcherMixin"
-  ]
+  "mixins": []
 }
