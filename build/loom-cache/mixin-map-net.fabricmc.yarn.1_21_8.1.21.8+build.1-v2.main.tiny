@@ -1,2 +1,0 @@
-v1	named	intermediary
-FIELD	com/jellomakker/macfpsboost/mixin/BlockEntityRenderDispatcherMixin	Lnet/minecraft/client/render/Camera;	camera	field_4344
