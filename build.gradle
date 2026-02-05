@@ -21,7 +21,7 @@ java {
 dependencies {
     minecraft "com.mojang:minecraft:${project.findProperty('minecraft.version')}"
     mappings "net.fabricmc:yarn:${project.findProperty('loom.mappings.version')}:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.14.28"
+    modImplementation "net.fabricmc:fabric-loader:0.18.4"
 }
 
 loom {
