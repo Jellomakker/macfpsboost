@@ -1,0 +1,26 @@
+{
+  "mappings": {
+    "com/jellomakker/macfpsboost/mixin/BlockEntityRenderDispatcherMixin": {
+      "render": "Lnet/minecraft/class_824;method_3555(Lnet/minecraft/class_2586;FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;)V"
+    },
+    "com/jellomakker/macfpsboost/mixin/MinecraftClientMixin": {
+      "tick": "Lnet/minecraft/class_310;method_1574()V"
+    },
+    "com/jellomakker/macfpsboost/mixin/ParticleManagerMixin": {
+      "addParticle": "Lnet/minecraft/class_702;method_3056(Lnet/minecraft/class_2394;DDDDDD)Lnet/minecraft/class_703;"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/jellomakker/macfpsboost/mixin/BlockEntityRenderDispatcherMixin": {
+        "render": "Lnet/minecraft/class_824;method_3555(Lnet/minecraft/class_2586;FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;)V"
+      },
+      "com/jellomakker/macfpsboost/mixin/MinecraftClientMixin": {
+        "tick": "Lnet/minecraft/class_310;method_1574()V"
+      },
+      "com/jellomakker/macfpsboost/mixin/ParticleManagerMixin": {
+        "addParticle": "Lnet/minecraft/class_702;method_3056(Lnet/minecraft/class_2394;DDDDDD)Lnet/minecraft/class_703;"
+      }
+    }
+  }
+}
