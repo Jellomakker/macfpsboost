@@ -7,8 +7,6 @@
   "mixins": [
     "MinecraftClientMixin",
     "ParticleManagerMixin",
-    "BlockEntityRenderDispatcherMixin",
-    "RenderLoopMixin",
-    "ChunkRebuildMixin"
+    "BlockEntityRenderDispatcherMixin"
   ]
 }
